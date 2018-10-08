@@ -48,9 +48,9 @@ shinyUI
           tabPanel("Smoke",tableOutput("summarysmoke"), plotOutput("histsmoker")),
           tabPanel("Region",tableOutput("summaryregion"), plotOutput("histregion")),
           tabPanel("Amount",tableOutput("summaryamount"), plotOutput("histcharges"))
-        )
+        ),
         
-        #plotOutput("myhist")
+        fluidRow(splitLayout(cellWidths=c("50%","50%"),plotOutput("pie_smoke_male"),plotOutput("pie_smoke_female")))
       )
     )
   )
