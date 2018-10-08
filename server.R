@@ -52,19 +52,20 @@ shinyServer
     male_smoker=nrow(subset(info, sex=="male" & smoker=="yes"))
     male_nonsmoker=nrow(subset(info, sex=="male" & smoker=="no"))
     male_smoker_nonsmoker=c(male_smoker,male_nonsmoker)
-    piepercent<- round(100*male_smoker_nonsmoker/sum(male_smoker_nonsmoker), 1)
+    male_piepercent<- round(100*male_smoker_nonsmoker/sum(male_smoker_nonsmoker), 1)
     female_smoker=nrow(subset(info, sex=="female" & smoker=="yes"))
     female_nonsmoker=nrow(subset(info, sex=="female" & smoker=="no"))
     female_smoker_nonsmoker=c(female_smoker,female_nonsmoker)
+    female_piepercent<- round(100*female_smoker_nonsmoker/sum(female_smoker_nonsmoker), 1)
     labels1=c("Smoker","Non-Smoker")
     
     
     output$pie_smoke_male <- renderPlot({
-      pie(male_smoker_nonsmoker,labels=piepercent,main="Male Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
+      pie(male_smoker_nonsmoker,labels=male_piepercent,main="Male Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
       legend("topright",labels1,cex=0.8,fill=c("red","green"))
     })
     output$pie_smoke_female <- renderPlot({
-      pie(female_smoker_nonsmoker,labels=piepercent,main="Female Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
+      pie(female_smoker_nonsmoker,labels=female_piepercent,main="Female Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
       legend("topright",labels1,cex=0.8,fill=c("red","green"))
     })
   }

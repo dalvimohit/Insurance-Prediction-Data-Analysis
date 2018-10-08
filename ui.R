@@ -4,7 +4,9 @@ shinyUI
 (
   fluidPage
   (
-  
+    tags$head(
+      tags$style(HTML("hr {border-top: 1px solid #000000;}"))
+    ),
     #application title
     titlePanel(HTML("<h1><center><font size=20>Data Analysis of Insurance Data</font></h1>")),
     sidebarLayout
@@ -35,12 +37,12 @@ shinyUI
         h4("Region: the beneficiary's residential area in the US"),
         h4("Charges: Individual medical costs billed by health insurance",sep="</br></br>"),
         
-        #h3(textOutput("pred11")),
+        hr(),
       
         h2("Summary of Data"),
         tabsetPanel
         (
-          type="tab",
+          type="pills",
           tabPanel("Age",tableOutput("summaryage"), plotOutput("histage")),
           tabPanel("Gender",tableOutput("summarysex"), plotOutput("histsex")),
           tabPanel("BMI",tableOutput("summarybmi"), plotOutput("histbmi")),
@@ -49,6 +51,8 @@ shinyUI
           tabPanel("Region",tableOutput("summaryregion"), plotOutput("histregion")),
           tabPanel("Amount",tableOutput("summaryamount"), plotOutput("histcharges"))
         ),
+        
+        hr(),
         
         fluidRow(splitLayout(cellWidths=c("50%","50%"),plotOutput("pie_smoke_male"),plotOutput("pie_smoke_female")))
       )
