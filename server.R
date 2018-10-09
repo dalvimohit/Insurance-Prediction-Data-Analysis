@@ -1,4 +1,6 @@
 library(shiny)
+library(plotrix)
+library(plotly)
 
 shinyServer
 (
@@ -61,12 +63,32 @@ shinyServer
     
     
     output$pie_smoke_male <- renderPlot({
-      pie(male_smoker_nonsmoker,labels=male_piepercent,main="Male Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
+      pie(male_smoker_nonsmoker,labels=male_piepercent,main="Male Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,radius=0.7,col=c("red","green"))
       legend("topright",labels1,cex=0.8,fill=c("red","green"))
     })
     output$pie_smoke_female <- renderPlot({
-      pie(female_smoker_nonsmoker,labels=female_piepercent,main="Female Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,col=c("red","green"))
+      pie(female_smoker_nonsmoker,labels=female_piepercent,main="Female Smokers and Non-Smokers",init.angle = 90,clockwise = TRUE,radius=0.7,col=c("red","green"))
       legend("topright",labels1,cex=0.8,fill=c("red","green"))
     })
+    
+    children0=nrow(subset(info,children==0))
+    children1=nrow(subset(info,children==1))
+    children2=nrow(subset(info,children==2))
+    children3=nrow(subset(info,children==3))
+    children4=nrow(subset(info,children==4))
+    children5=nrow(subset(info,children==5))
+    children_count <- c(children0,children1,children2,children3,children4,children5)
+    labels2 <- c("Zero","One","Two","Three","Four","Five")
+    children_piepercent<- round(100*children_count/sum(children_count), 1)
+    output$pie_children <- renderPlot({
+      pie3D(children_count,explode=0.1,labels=children_piepercent,main="Pie chart of No of Children",col=rainbow(6),start=2)
+      legend("topright",labels2,cex=0.8,fill=rainbow(6))
+    })
+    
+    output$age_bmi_plot <- renderPlot({plot(x=info$age,y=info$bmi,xlab="Age",ylab="BMI",main="Age vs BMI",col="green")})
+    
+    #no of smokers vs age
+    #only_smoker <- subset(info,smoker=="yes")
+    #output$smoker_age <- renderPlot({plot(x=only_smoker$age,type="h")})
   }
 )

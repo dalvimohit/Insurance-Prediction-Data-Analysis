@@ -1,4 +1,6 @@
 library(shiny)
+library(plotrix)
+library(plotly)
 
 shinyUI
 (
@@ -51,10 +53,18 @@ shinyUI
           tabPanel("Region",tableOutput("summaryregion"), plotOutput("histregion")),
           tabPanel("Amount",tableOutput("summaryamount"), plotOutput("histcharges"))
         ),
-        
         hr(),
         
-        fluidRow(splitLayout(cellWidths=c("50%","50%"),plotOutput("pie_smoke_male"),plotOutput("pie_smoke_female")))
+        fluidRow(splitLayout(cellWidths=c("50%","50%"),plotOutput("pie_smoke_male",width="99%"),plotOutput("pie_smoke_female",width="99%"))),
+        hr(),
+        
+        plotOutput("pie_children"),
+        hr(),
+        
+        plotOutput("age_bmi_plot"),
+        hr(),
+        
+        plotOutput("smoker_age")
       )
     )
   )
